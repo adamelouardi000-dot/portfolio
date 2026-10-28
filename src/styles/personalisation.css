@@ -1,0 +1,49 @@
+/* Name effects run only on deliberate interaction; the text never changes. */
+.hero h1.title-interactive { position: relative; width: fit-content; max-width: 100%; isolation: isolate; }
+.title-interactive:focus-visible { outline-offset: 12px; }
+.name-visible-text { display: flex; flex-direction: column; }
+.name-word { display: block; white-space: nowrap; }
+.name-letter { display: inline-block; }
+.name-circuit { position: absolute; inset: -12px -17px; z-index: -1; pointer-events: none; opacity: 0; transition: opacity .2s ease; }
+.name-circuit svg { width: 100%; height: 100%; overflow: visible; }
+.name-circuit path { stroke: #62dded70; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.name-circuit .name-circuit-trace { stroke: #62dded; stroke-dasharray: 600; stroke-dashoffset: 600; }
+.name-particle { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: #62dded; opacity: 0; box-shadow: 0 0 9px #62dded; }
+.name-particle-one { top: 8%; right: 18%; }
+.name-particle-two { bottom: 5%; right: 7%; }
+.name-particle-three { top: 37%; left: 0; }
+.title-interactive:is(:hover, :focus-visible) .name-circuit { opacity: 1; }
+.title-interactive:is(:hover, :focus-visible) .name-letter { animation: name-illuminate .65s ease both; animation-delay: calc(var(--letter-index) * 22ms); }
+.title-interactive:is(:hover, :focus-visible) .name-circuit-trace { animation: name-trace .9s ease-out forwards; }
+.title-interactive:is(:hover, :focus-visible) .name-particle { animation: name-particle .9s ease-out; }
+.title-interactive:is(:hover, :focus-visible) .name-particle-two { animation-delay: .13s; }
+.title-interactive:is(:hover, :focus-visible) .name-particle-three { animation-delay: .25s; }
+.hero-education { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 7px; margin: 13px 0 0; color: #9fb0c9; font-size: 11px; line-height: 1.7; }
+.hero-education > svg { color: #62dded; flex-shrink: 0; }
+.hero-education strong { color: #d4e2f5; font-weight: 550; }
+.hero-education .education-separator { color: #54718b; }
+.profile-portrait.has-photo { display: grid; place-items: center; isolation: isolate; overflow: hidden; background: radial-gradient(ellipse at 50% 40%, #122b3e, #0b121c 75%); }
+.profile-portrait.has-photo::before { content: ''; position: absolute; inset: 0; z-index: -1; background-image: linear-gradient(#6cdcec08 1px, transparent 1px), linear-gradient(90deg, #6cdcec08 1px, transparent 1px); background-size: 32px 32px; mask-image: radial-gradient(ellipse, #000, transparent 75%); }
+.profile-portrait.has-photo::after { content: ''; position: absolute; inset: 14% 18%; z-index: -1; border: 1px solid #62dded18; border-radius: 50%; box-shadow: 0 0 0 22px #62dded04, 0 0 0 44px #62dded03; }
+/* Keep the real CV photo at its native resolution instead of stretching it. */
+.profile-portrait.has-photo > img { width: 158px; max-width: calc(100% - 36px); height: auto; object-fit: contain; object-position: center top; border: 1px solid #c2d8e34d; border-radius: 4px; box-shadow: 0 12px 40px #0005; }
+@keyframes name-illuminate {
+  0%, 100% { transform: translateY(0); text-shadow: none; }
+  45% { transform: translateY(-2px); color: #b2f2fa; text-shadow: 0 0 22px #62dded55; }
+}
+@keyframes name-trace { to { stroke-dashoffset: 0; } }
+@keyframes name-particle {
+  0% { opacity: 0; transform: translateY(4px); }
+  35% { opacity: .8; }
+  100% { opacity: 0; transform: translateY(-13px); }
+}
+@media (max-width: 600px) {
+  .name-circuit { inset: -10px -10px; }
+  .hero-education { font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .title-interactive .name-letter, .title-interactive .name-circuit-trace, .title-interactive .name-particle { animation: none !important; transform: none !important; }
+  .title-interactive .name-circuit { transition: none; }
+  .title-interactive:is(:hover, :focus-visible) .name-circuit-trace { stroke-dashoffset: 0; }
+  .title-interactive:is(:hover, :focus-visible) .name-letter { text-shadow: 0 0 16px #62dded30; }
+}

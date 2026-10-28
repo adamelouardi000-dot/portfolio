@@ -1,0 +1,24 @@
+.skill-evidence { margin-top: 18px; padding-top: 14px; border-top: 1px solid #203044; }
+.evidence-label { display: inline-flex; align-items: center; gap: 6px; width: fit-content; max-width: 100%; padding: 4px 7px; border: 1px solid #304359; border-radius: 3px; color: #b5c6db; font: 9px/1.5 var(--font-mono, 'IBM Plex Mono', monospace); }
+.skill-evidence-project .evidence-label { color: #9ee1e5; border-color: #31565b; background: #112c333d; }
+.skill-evidence-interest .evidence-label { color: #a5b2c5; border-style: dashed; }
+.skill-evidence p { margin: 9px 0 0; color: #96a7bc; font-size: 11px; line-height: 1.8; }
+.profile-trainings { margin-bottom: 30px; }
+.profile-training-heading { margin-bottom: 20px; max-width: 730px; }
+.profile-training-heading h3 { color: #dce7f7; font-size: 17px; font-weight: 600; line-height: 1.6; margin: 0 0 7px; letter-spacing: -.02em; }
+.profile-training-heading p { color: #9aa8bd; font-size: 12px; line-height: 1.9; margin: 0; }
+.profile-training-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.profile-training-card { display: flex; flex-direction: column; min-width: 0; padding: 26px; border: 1px solid #24394a; border-radius: 8px; background: linear-gradient(145deg, #0f1d2a, #0d1421); }
+.profile-training-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; color: #62dded; }
+.profile-training-issuer { color: #9fb5ca; font: 10px/1.7 var(--font-mono, 'IBM Plex Mono', monospace); margin: 0 0 7px; }
+.profile-training-card h4 { margin: 0 0 12px; color: #eef3fa; font-size: 18px; font-weight: 600; line-height: 1.6; letter-spacing: -.02em; }
+.profile-training-note { margin: 0; color: #9aa8bd; font-size: 12px; line-height: 1.9; }
+.profile-training-card > a { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 20px; padding-top: 16px; border-top: 1px solid #263b4b; color: #62dded; text-decoration: none; font-size: 11px; }
+.profile-training-card > a:hover { color: #eef3fa; }
+@media (max-width: 600px) {
+  .profile-training-grid { grid-template-columns: 1fr; }
+  .profile-training-card { padding: 23px; }
+  .profile-training-card h4 { font-size: 17px; }
+  .profile-skills-status { align-items: flex-start; }
+  .profile-skills-status > span { margin-top: 6px; }
+}

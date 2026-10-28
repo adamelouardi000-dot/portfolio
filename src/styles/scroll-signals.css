@@ -1,0 +1,49 @@
+.scroll-signal-layer {
+  --signal-color: #62dded;
+  --signal-distance: 72px;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: clip;
+  pointer-events: none;
+  user-select: none;
+  color: var(--signal-color);
+}
+.scroll-signal-layer.signal-amber { --signal-color: #d8ac64; }
+.scroll-signal-anchor {
+  position: absolute;
+  top: 72px;
+  right: max(16px, calc((100% - 1180px) / 2 - 32px));
+  width: clamp(140px, 17vw, 220px);
+  aspect-ratio: 1;
+}
+.scroll-signal-drift {
+  position: absolute;
+  inset: 0;
+  transform: translate3d(calc(var(--signal-progress, 0) * 12px), calc(var(--signal-progress, 0) * var(--signal-distance)), 0) rotate(calc(var(--signal-progress, 0) * 12deg));
+}
+.signal-left .scroll-signal-anchor { right: auto; left: max(12px, calc((100% - 1180px) / 2 - 46px)); top: 57%; }
+.scroll-signal-entry { transform-origin: center; }
+.scroll-signal-glyph { display: block; width: 100%; height: auto; }
+.signal-circuit { stroke: currentColor; stroke-width: .8; opacity: .25; }
+.signal-outer { stroke: currentColor; stroke-width: .8; opacity: .25; }
+.signal-triangle { stroke: currentColor; stroke-width: 1.3; fill: currentColor; fill-opacity: .025; opacity: .75; }
+.signal-inset { stroke: currentColor; stroke-width: .6; opacity: .25; }
+.signal-mark { stroke: currentColor; stroke-width: 3; stroke-linecap: round; opacity: .8; }
+.signal-track { stroke: currentColor; stroke-width: 1; opacity: .3; }
+.signal-echo { stroke: currentColor; stroke-width: .8; opacity: .4; }
+html:is([data-visual-motion='paused'], [data-visual-motion='reduced']) .scroll-signal-layer { display: none; }
+@media (max-width: 800px) {
+  .scroll-signal-layer { --signal-distance: 30px; }
+  .scroll-signal-anchor { width: 128px; right: 8px; top: 25px; }
+  .signal-left .scroll-signal-anchor { left: -24px; }
+  .scroll-signal-entry { opacity: .6 !important; }
+}
+@media (max-width: 600px) {
+  .scroll-signal-layer { --signal-distance: 16px; }
+  .scroll-signal-anchor { width: 94px; top: 9px; right: 9px; }
+  .signal-left .scroll-signal-anchor { top: 48%; left: -30px; }
+  .signal-circuit, .signal-outer, .signal-echo { display: none; }
+  .scroll-signal-entry { opacity: .45 !important; }
+}
+@media (prefers-reduced-motion: reduce) { .scroll-signal-layer { display: none; } }

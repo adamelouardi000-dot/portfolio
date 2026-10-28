@@ -1,0 +1,6 @@
+.decrypt-text { position: relative; display: inline-block; max-width: 100%; vertical-align: top; }
+.decrypt-text-layout { visibility: hidden; }
+.decrypt-text-visual { position: absolute; inset: 0; overflow: hidden; }
+html[data-visual-motion='paused'] .decrypt-text-layout, html[data-visual-motion='reduced'] .decrypt-text-layout { visibility: visible; }
+html[data-visual-motion='paused'] .decrypt-text-visual, html[data-visual-motion='reduced'] .decrypt-text-visual { visibility: hidden; }
+@media (prefers-reduced-motion: reduce) { .decrypt-text-layout { visibility: visible; } .decrypt-text-visual { visibility: hidden; } }

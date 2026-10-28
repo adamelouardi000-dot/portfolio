@@ -1,0 +1,82 @@
+.hologram-visual { width: 100%; max-width: 540px; isolation: isolate; pointer-events: none; --hologram-x: var(--scene-x, 0); --hologram-y: var(--scene-y, 0); }
+.hologram-caption { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-inline: 23px; color: #83a7b7; font-size: 8px; line-height: 1.5; letter-spacing: .13em; }
+.hologram-caption > span:first-child { display: inline-flex; align-items: center; gap: 7px; }
+.hologram-caption > span > i { width: 4px; height: 4px; background: #78d6bb; box-shadow: 0 0 8px #73e8c755; }
+.hologram-channel { color: #557f91; }
+.hologram-stage { position: relative; aspect-ratio: 1; pointer-events: auto; touch-action: pan-y pinch-zoom; cursor: grab; border-radius: 12px; outline-offset: 3px; }
+.hologram-stage[data-dragging='true'] { cursor: grabbing; }
+.hologram-stage[aria-disabled='true'] { cursor: default; }
+.hologram-stage:focus-visible { outline: 1px solid #75dce8; }
+.hologram-scenery { position: absolute; inset: 0; pointer-events: none; user-select: none; }
+.hologram-aura { position: absolute; inset: 2% -2% 0; border-radius: 50%; background: radial-gradient(ellipse at 48% 39%, #17779d24, #102c621c 36%, transparent 69%); animation: hood-light-breath 7s ease-in-out infinite alternate; }
+.hologram-halo { position: absolute; inset: 16% 24% 28%; border-radius: 50%; background: radial-gradient(ellipse, #56ddf012, #0874960a 46%, transparent 70%); transform: translate(calc(var(--hologram-x) * -6px), calc(var(--hologram-y) * -4px)); }
+.hologram-floor { position: absolute; width: 80%; height: 15%; bottom: 8%; left: 10%; border-radius: 50%; background: radial-gradient(ellipse, #36bad625, #17364c0c 48%, transparent 70%); transform: translate(calc(var(--hologram-x) * -6px), calc(var(--hologram-y) * -3px)); }
+.hologram-plane { position: absolute; inset: 0; transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+.hologram-plane-back { transform: translate(calc(var(--hologram-x) * -7px), calc(var(--hologram-y) * -5px)); }
+.hologram-plane-front { transform: translate(calc(var(--hologram-x) * 9px), calc(var(--hologram-y) * 6px)); }
+.hologram-svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.hologram-rim-turn { transform-origin: 280px 280px; animation: hologram-revolve 110s linear infinite; }
+.hologram-ring-reverse { transform-origin: 280px 315px; animation: hologram-revolve 140s linear infinite reverse; }
+.hologram-character { position: absolute; inset: 0; }
+.hologram-character-perspective { position: absolute; inset: 0; perspective: 1000px; --character-depth: clamp(30px, 5.5vw, 58px); }
+.hologram-character-turntable { position: absolute; inset: 0; transform-style: preserve-3d; transform-origin: 50% 52%; }
+.hologram-character-front { transform: translateZ(var(--character-depth)); backface-visibility: hidden; }
+.hologram-character-back { transform: rotateY(180deg) translateZ(var(--character-depth)); backface-visibility: hidden; }
+.hologram-volume-slice { position: absolute; inset: 0; transform: translateZ(calc(var(--character-depth) * var(--slice-depth))); }
+.hologram-side-shell { position: absolute; inset: 0; transform: rotateY(90deg); }
+.hologram-laptop-volume { position: absolute; inset: 0; transform: translateZ(calc(var(--character-depth) + 24px)); transform-style: preserve-3d; }
+.hologram-laptop-front, .hologram-laptop-rear { position: absolute; inset: 0; backface-visibility: hidden; }
+.hologram-laptop-front { transform: translateZ(1px); }
+.hologram-laptop-rear { transform: rotateY(180deg) translateZ(1px); }
+.hologram-mist { position: absolute; bottom: 9%; left: 0; width: 95%; height: 23%; border-radius: 50%; background: radial-gradient(ellipse, #61d5e50d, #2463890a 36%, transparent 68%); animation: hood-mist-drift 15s ease-in-out infinite alternate; }
+.hologram-mist-back { bottom: 11%; left: 8%; opacity: .7; animation-delay: -8s; }
+.hologram-mist-front { bottom: 4%; left: -8%; width: 112%; height: 27%; background: radial-gradient(ellipse, #72b9d50d, #25498708 35%, transparent 67%); animation-duration: 19s; animation-direction: alternate-reverse; }
+.hologram-particles { position: absolute; inset: 0; transform: translate(calc(var(--hologram-x) * 15px), calc(var(--hologram-y) * 11px)); transition: transform .7s ease-out; }
+.hologram-particles > i { position: absolute; width: var(--particle-size); height: var(--particle-size); border-radius: 50%; background: #8ce6ee; box-shadow: 0 0 6px #61dcf044; opacity: .3; animation: hood-particle-rise var(--particle-duration) ease-in-out var(--particle-delay) infinite alternate; }
+.hologram-particles > i:nth-child(3n) { background: #80b9df; opacity: .22; }
+.hologram-front-scan { position: absolute; inset: 0; opacity: .65; animation: hood-scan-breath 8s ease-in-out infinite alternate; }
+.hologram-axis { position: absolute; top: 51%; color: #68a7bd88; font-size: 7px; line-height: 1; letter-spacing: .05em; }
+.hologram-axis-left { left: 0; }
+.hologram-axis-right { right: 0; }
+.hologram-caption-bottom { margin-top: 15px; font-size: 7px; }
+.hologram-rotation-controls { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-inline: 23px; margin-top: -13px; pointer-events: auto; }
+.hologram-rotation-hint { max-width: 60%; font-size: 6px; line-height: 1.6; letter-spacing: .07em; color: #7da7b7; }
+.hologram-rotation-buttons { display: flex; gap: 3px; }
+.hologram-rotation-buttons button { display: inline-flex; justify-content: center; align-items: center; width: 30px; min-height: 30px; border: 1px solid #315264; border-radius: 4px; background: #0c1b29cc; color: #9cdae3; transition: color .2s, border-color .2s, background-color .2s; }
+.hologram-rotation-buttons button:is(:hover, :focus-visible):not(:disabled) { border-color: #66d8e5; background: #133043; color: #e6fcff; }
+.hologram-rotation-buttons button:disabled { opacity: .45; cursor: default; }
+.hologram-rotation-buttons .hologram-rotation-reset { width: 63px; gap: 5px; font-size: 8px; }
+.hologram-signal { display: inline-flex; align-items: flex-end; gap: 3px; height: 10px; }
+.hologram-signal > i { display: block; width: 2px; height: 3px; background: #6cbdbe; box-shadow: none; animation: hood-signal-breathe 5s ease-in-out infinite alternate; }
+.hologram-signal > i:nth-child(2) { height: 5px; animation-delay: -.7s; }
+.hologram-signal > i:nth-child(3) { height: 7px; animation-delay: -1.4s; }
+.hologram-signal > i:nth-child(4) { height: 9px; animation-delay: -2.1s; }
+
+@keyframes hologram-revolve { to { transform: rotate(360deg); } }
+@keyframes hood-light-breath { from { opacity: .55; transform: scale(.97); } to { opacity: 1; transform: scale(1.04); } }
+@keyframes hood-mist-drift { from { opacity: .45; transform: translateX(-5%) scale(.95); } to { opacity: .9; transform: translateX(7%) scale(1.06); } }
+@keyframes hood-particle-rise { from { transform: translate3d(0, 9px, 0); opacity: .15; } to { transform: translate3d(4px, -15px, 0); opacity: .55; } }
+@keyframes hood-scan-breath { from { opacity: .3; transform: translateY(2px); } to { opacity: .7; transform: translateY(-7px); } }
+@keyframes hood-signal-breathe { from { opacity: .35; } to { opacity: .8; } }
+
+html:is([data-visual-motion='paused'], [data-visual-motion='reduced']) .anonymous-visual *,
+.hero[data-scene-visible='false'] .anonymous-visual * { animation-play-state: paused !important; }
+html:is([data-visual-motion='paused'], [data-visual-motion='reduced']) :is(.hologram-plane, .hologram-floor, .hologram-halo, .hologram-particles) { transform: none; transition: none; }
+@media (max-width: 1100px) { .hologram-caption { padding-inline: 12px; font-size: 7px; }.hologram-caption-bottom { font-size: 6px; }.hologram-rotation-controls { padding-inline: 12px; }.hologram-rotation-hint { font-size: 5px; } }
+@media (max-width: 800px) and (min-width: 601px) { .hologram-caption { font-size: 5px; letter-spacing: .08em; }.hologram-axis { font-size: 5px; }.hologram-signal { transform: scale(.8); }.hologram-rotation-controls { flex-direction: column; gap: 7px; }.hologram-rotation-hint { max-width: none; }.hologram-character-perspective { --character-depth: 27px; } }
+@media (max-width: 600px) {
+  .hologram-caption { font-size: 6px; padding-inline: 12px; }
+  .hologram-caption-bottom { font-size: 6px; }
+  .hologram-particles > i:nth-child(n+9), .hologram-mist-back { display: none; }
+  .hologram-ring-reverse { animation: none; }
+  .hologram-axis { font-size: 6px; }
+  .hologram-rotation-buttons button { min-width: 36px; min-height: 36px; }
+  .hologram-rotation-hint { font-size: 5px; }
+  .hologram-character-perspective { --character-depth: 35px; }
+  .hologram-laptop-volume { transform: translateZ(calc(var(--character-depth) + 16px)); }
+}
+@media (hover: none), (pointer: coarse) { .hologram-plane, .hologram-floor, .hologram-halo, .hologram-particles { transform: none; transition: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .anonymous-visual *, .anonymous-visual *::before, .anonymous-visual *::after { animation: none !important; }
+  .hologram-plane, .hologram-floor, .hologram-halo, .hologram-particles { transform: none; transition: none; }
+}
