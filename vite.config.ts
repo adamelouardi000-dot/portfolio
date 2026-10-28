@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { profile } from './src/data/profile.ts'
-import { safeHref } from './src/lib/links.ts'
+import { getSeo, personJsonLd } from './src/data/seo.ts'
 
 const escapeHtml = (value: string) => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;')
 
@@ -13,23 +13,22 @@ export default defineConfig({
   plugins: [react(), tailwindcss(), {
     name: 'portfolio-metadata',
     transformIndexHtml(html) {
-      const title = `${profile.name} — ${profile.role.fr} · PFE ${profile.internshipYear}`
-      const description = profile.heroDescription.fr
-      const siteUrl = safeHref(profile.siteUrl)
+      const metadata = getSeo('fr')
+      const replacements: Record<string, string> = {
+        TITLE: metadata.title,
+        DESCRIPTION: metadata.description,
+        NAME: profile.name,
+        ROBOTS: metadata.robots,
+        CANONICAL: metadata.canonical,
+        SITE_NAME: metadata.siteName,
+        OG_TITLE: metadata.ogTitle,
+        IMAGE: metadata.image,
+        IMAGE_ALT: metadata.imageAlt,
+      }
       return {
-        html: html.replaceAll('__PORTFOLIO_TITLE__', escapeHtml(title))
-          .replaceAll('__PORTFOLIO_DESCRIPTION__', escapeHtml(description))
-          .replaceAll('__PORTFOLIO_NAME__', escapeHtml(profile.name)),
+        html: Object.entries(replacements).reduce((result, [key, value]) => result.replaceAll(`__PORTFOLIO_${key}__`, escapeHtml(value)), html),
         tags: [
-          { tag: 'script', attrs: { type: 'application/ld+json' }, children: JSON.stringify({
-            '@context': 'https://schema.org', '@type': 'Person', name: profile.name,
-            description: profile.heroDescription.fr, ...(siteUrl ? { url: siteUrl } : {}),
-            sameAs: [safeHref(profile.github), safeHref(profile.linkedin)].filter(Boolean),
-          }).replaceAll('<', '\\u003c') },
-          ...(siteUrl && /^https?:/.test(siteUrl) ? [
-            { tag: 'link', attrs: { rel: 'canonical', href: siteUrl } },
-            { tag: 'meta', attrs: { property: 'og:url', content: siteUrl } },
-          ] : []),
+          { tag: 'script', attrs: { type: 'application/ld+json' }, children: JSON.stringify(personJsonLd).replaceAll('<', '\\u003c'), injectTo: 'head' },
         ],
       }
     },

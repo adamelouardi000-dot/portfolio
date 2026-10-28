@@ -44,7 +44,7 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/adam-elouardi-007936375/' as string | null,
   cv: '/assets/adam-elouardi-cv.pdf' as string | null,
   photo: '/assets/adam-elouardi-portrait.jpg' as string | null,
-  siteUrl: null as string | null,
+  siteUrl: 'https://adamelouardi000-dot.github.io/portfolio/',
 }
 
 export const skillCategories: SkillCategory[] = [

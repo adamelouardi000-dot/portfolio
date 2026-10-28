@@ -88,7 +88,7 @@ Coordonnées et ressources configurées :
 - `profile.cv` : `/assets/adam-elouardi-cv.pdf`.
 - `profile.photo` : `/assets/adam-elouardi-portrait.jpg`.
 
-`profile.siteUrl` reste à `null` en attendant l’URL de publication. Pour une ressource absente, conserver `null` ou omettre le champ facultatif, plutôt qu’utiliser une URL fictive ou `#`.
+`profile.siteUrl` désigne `https://adamelouardi000-dot.github.io/portfolio/`. Pour une ressource absente, conserver `null` ou omettre le champ facultatif, plutôt qu’utiliser une URL fictive ou `#`.
 
 ### CV, portrait et captures
 
@@ -206,7 +206,9 @@ Pour tester localement la version compilée : `npm run build`, puis `npm run pre
 
 ### Métadonnées et autres hébergeurs
 
-Les métadonnées proviennent de `profile.ts`. Le plugin `portfolio-metadata` de `vite.config.ts` génère titre, description et JSON-LD `Person`. Garder les jetons `__PORTFOLIO_*__` de `index.html`. GitHub/LinkedIn alimentent `sameAs` ; `profile.siteUrl` activera l’URL canonique et `og:url` au prochain build. `Seo.tsx` actualise les métadonnées selon FR/EN.
+Les métadonnées sont centralisées dans `src/data/seo.ts`, à partir des faits publics de `profile.ts`. Le plugin `portfolio-metadata` de `vite.config.ts` injecte titre, description, canonical, robots, Open Graph, Twitter Card et JSON-LD `Person` dans le HTML statique, avant tout JavaScript. Garder les jetons `__PORTFOLIO_*__` de `index.html`. `Seo.tsx` actualise les descriptions FR/EN en conservant l’URL canonique et l’image de partage.
+
+La couverture `public/og-cover.png` est une image PNG statique de 1200 × 630 pixels. Son URL publique est `https://adamelouardi000-dot.github.io/portfolio/og-cover.png`. Elle présente uniquement le nom, le statut étudiant, EMSI Rabat et PFE 2027. Les données structurées ne republient ni email, ni téléphone, ni adresse personnelle, ni certification non vérifiée.
 
 Le contenu React est rendu côté client. Une image de partage ou un prérendu pourront être ajoutés ultérieurement avec des ressources réelles.
 
@@ -217,4 +219,4 @@ Les configurations sont prêtes pour **Node.js 24**, `npm run build` et la sorti
 | Vercel | Framework Vite, racine du projet, installation `npm ci`, build `npm run build`, sortie `dist`, réglages dans `vercel.json`. |
 | Netlify | Racine du projet, build `npm run build`, sortie `dist`, version Node dans `netlify.toml`. |
 
-Les fichiers Netlify et Vercel ne déclenchent aucun déploiement par eux-mêmes. La configuration Vite actuelle cible le sous-chemin `/portfolio/` ; adapter `base` si un autre hébergeur sert le site à la racine. Aucun dépôt distant n’est requis pour consulter le site localement. Avant la publication, renseigner `profile.siteUrl`, harmoniser le CV avec le rapport PFA et effectuer les contrôles ci-dessus.
+Les fichiers Netlify et Vercel ne déclenchent aucun déploiement par eux-mêmes. La configuration Vite actuelle cible le sous-chemin `/portfolio/` ; adapter `base` et `profile.siteUrl` pour un autre hébergeur. Aucun dépôt distant n’est requis pour consulter le site localement. Avant la publication, harmoniser le CV avec le rapport PFA et effectuer les contrôles ci-dessus.
