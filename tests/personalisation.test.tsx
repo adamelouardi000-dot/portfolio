@@ -50,7 +50,7 @@ describe('personal identity and professional links', () => {
     profile.linkedin = 'https://www.linkedin.com/in/example/'
     render(<Hero locale="en" />)
     const cv = screen.getByRole('link', { name: 'Download CV' })
-    expect(cv.getAttribute('href')).toBe(profile.cv)
+    expect(cv.getAttribute('href')).toBe(`${import.meta.env.BASE_URL}${profile.cv!.slice(1)}`)
     expect(cv.hasAttribute('download')).toBe(true)
     for (const [label, href] of [['GitHub', profile.github], ['LinkedIn', profile.linkedin]]) {
       const link = screen.getByRole('link', { name: label! })
@@ -79,7 +79,7 @@ describe('professional portrait fallback', () => {
     expect(screen.queryByText(`portrait / ${profile.name}`)).toBeNull()
 
     rerender(<ProfilePortrait src="/assets/replacement.jpg" name={profile.name} locale="en" />)
-    expect(screen.getByRole('img', { name: `Professional portrait of ${profile.name}` }).getAttribute('src')).toBe('/assets/replacement.jpg')
+    expect(screen.getByRole('img', { name: `Professional portrait of ${profile.name}` }).getAttribute('src')).toBe(`${import.meta.env.BASE_URL}assets/replacement.jpg`)
     expect(screen.queryByText('Photo momentanément indisponible')).toBeNull()
   })
 })

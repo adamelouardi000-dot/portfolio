@@ -35,11 +35,11 @@ describe('certification evidence', () => {
     render(<Certifications locale="fr" />)
     const badge = certifications.find((entry) => entry.id === 'oci-architect-associate-2026')!
     const image = screen.getByRole('img', { name: `Badge ${badge.name}` })
-    expect(image.getAttribute('src')).toBe('/assets/oracle-oci-architect-associate-2026.jpg')
+    expect(image.getAttribute('src')).toBe(`${import.meta.env.BASE_URL}assets/oracle-oci-architect-associate-2026.jpg`)
     expect(image.getAttribute('width')).toBe('560')
     expect(image.parentElement?.className).toBe('profile-cert-badge-art')
     const evidence = screen.getByRole('link', { name: 'Voir le badge' })
-    expect(evidence.getAttribute('href')).toBe(badge.evidenceUrl)
+    expect(evidence.getAttribute('href')).toBe(`${import.meta.env.BASE_URL}${badge.evidenceUrl!.slice(1)}`)
     expect(evidence.getAttribute('rel')).toContain('noopener')
   })
 

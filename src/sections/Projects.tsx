@@ -8,7 +8,7 @@ import { Reveal } from '../components/Reveal'
 import { ProjectVisual } from '../components/ProjectVisual'
 import { ConfigLink } from '../components/ConfigLink'
 import { ScrollSignal } from '../components/ScrollSignal'
-import { safeHref } from '../lib/links'
+import { publicAssetUrl } from '../lib/assets'
 import '../styles/project-evidence.css'
 
 const kindLabel = { academic: { fr: 'Projet académique', en: 'Academic project' }, simulation: { fr: 'Simulation de crise', en: 'Crisis simulation' }, lab: { fr: 'Laboratoire pratique', en: 'Practical lab' }, internship: { fr: 'Projet de stage', en: 'Internship project' }, repository: { fr: 'Projet GitHub', en: 'GitHub project' } }
@@ -81,7 +81,7 @@ function ProjectDialog({ project, locale, onClose }: { project: Project; locale:
       <div className="dialog-block dialog-results"><h3>{fr ? 'Résultats & enseignements' : 'Results & lessons'}</h3><p>{localize(project.results, locale)}</p></div>
       {!!project.limitations?.length && <div className="dialog-block dialog-limitations"><h3>{fr ? 'Limites & perspectives' : 'Limitations & next steps'}</h3><ul>{project.limitations.map((limitation, i) => <li key={i}>{localize(limitation, locale)}</li>)}</ul></div>}
       <div className="dialog-block"><h3>{fr ? 'Technologies & concepts' : 'Technologies & concepts'}</h3><div className="project-tags">{project.technologies.map(tech => <span className="tag" key={tech}>{tech}</span>)}{!project.technologies.length && <p>{fr ? 'À renseigner.' : 'To be added.'}</p>}</div></div>
-      <div className="dialog-block"><h3>{fr ? 'Captures & pièces jointes' : 'Screenshots & supporting material'}</h3>{project.screenshots.some(item => safeHref(item.src)) ? project.screenshots.filter(item => safeHref(item.src)).map((item, i) => <img key={i} src={safeHref(item.src)} alt={localize(item.alt, locale)} className="project-screenshot" loading="lazy" />) : <p className="screenshot-placeholder">{fr ? 'Aucune capture fournie pour le moment.' : 'No screenshots supplied yet.'}</p>}</div>
+      <div className="dialog-block"><h3>{fr ? 'Captures & pièces jointes' : 'Screenshots & supporting material'}</h3>{project.screenshots.some(item => publicAssetUrl(item.src)) ? project.screenshots.filter(item => publicAssetUrl(item.src)).map((item, i) => <img key={i} src={publicAssetUrl(item.src)} alt={localize(item.alt, locale)} className="project-screenshot" loading="lazy" />) : <p className="screenshot-placeholder">{fr ? 'Aucune capture fournie pour le moment.' : 'No screenshots supplied yet.'}</p>}</div>
       {project.repositoryVisibility === 'confidential'
         ? <p className="confidential-repository"><LockKeyhole size={17} /><span>{fr ? 'Dépôt confidentiel — le code et les documents internes ne sont pas diffusés.' : 'Confidential repository — source code and internal documents are not shared.'}</span></p>
         : <ConfigLink href={project.github} className="button button-secondary" missingLabel={fr ? 'Dépôt GitHub à renseigner' : 'GitHub repository to be added'}><Github size={16} />{project.github ? (fr ? 'Consulter le dépôt' : 'View repository') : (fr ? 'Dépôt à renseigner' : 'Repository to be added')}</ConfigLink>}

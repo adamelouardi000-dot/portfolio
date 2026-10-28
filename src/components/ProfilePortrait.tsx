@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ScanFace } from 'lucide-react'
 import type { Locale } from '../data/types'
-import { safeHref } from '../lib/links'
+import { publicAssetUrl } from '../lib/assets'
 import '../styles/personalisation.css'
 
 interface PortraitProps {
@@ -12,7 +12,7 @@ interface PortraitProps {
 
 /** A new source resets the loading fallback without an effect or a broken image. */
 export function ProfilePortrait({ src, name, locale }: PortraitProps) {
-  const photo = safeHref(src)
+  const photo = publicAssetUrl(src)
   return <PortraitFrame key={photo ?? 'placeholder'} src={photo} name={name} locale={locale} />
 }
 

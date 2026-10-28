@@ -4,6 +4,7 @@ import { SectionHeading } from '../components/SectionHeading'
 import { certifications, trainings } from '../data/profile'
 import { localize, type Locale } from '../data/types'
 import { safeHref } from '../lib/links'
+import { publicAssetUrl } from '../lib/assets'
 import '../styles/profile-sections.css'
 import '../styles/evidence-sections.css'
 import '../styles/certification-evidence.css'
@@ -84,8 +85,8 @@ export function Certifications({ locale }: { locale: Locale }) {
           <div className="profile-cert-grid">
             {certifications.map((certification, index) => {
               const url = safeHref(certification.verificationUrl)
-              const logo = safeHref(certification.logo)
-              const evidence = safeHref(certification.evidenceUrl)
+              const logo = publicAssetUrl(certification.logo)
+              const evidence = publicAssetUrl(certification.evidenceUrl)
               const isBadge = certification.kind === 'badge'
               return (
                 <Reveal key={certification.id} className="profile-cert-card" delay={(index % 3) * 0.05}>

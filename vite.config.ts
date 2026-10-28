@@ -8,6 +8,7 @@ const escapeHtml = (value: string) => value.replaceAll('&', '&amp;').replaceAll(
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/portfolio/',
   preview: { port: 5174 },
   plugins: [react(), tailwindcss(), {
     name: 'portfolio-metadata',

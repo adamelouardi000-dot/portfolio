@@ -101,7 +101,7 @@ describe('contact form interactions', () => {
     const email = screen.getByRole('link', { name: (name) => name.startsWith('Email') && name.includes(configuredEmail!) })
     expect(email.getAttribute('href')).toBe(`mailto:${encodeURIComponent(configuredEmail!)}`)
     const cv = screen.getByRole('link', { name: 'Télécharger mon CV' })
-    expect(cv.getAttribute('href')).toBe(profile.cv)
+    expect(cv.getAttribute('href')).toBe(`${import.meta.env.BASE_URL}${profile.cv!.slice(1)}`)
     expect(cv.hasAttribute('download')).toBe(true)
     expect(screen.getByText('Ce formulaire ouvre un brouillon dans votre messagerie. Vous pourrez le vérifier et l’envoyer vous-même.')).toBeTruthy()
     expect(screen.getByRole('status').textContent).toBe('')
@@ -250,7 +250,7 @@ describe('project filters and detail dialog', () => {
     for (const limitation of entry.limitations!) expect(within(dialog).getByText(limitation.fr)).toBeTruthy()
     expect(within(dialog).getAllByRole('img')).toHaveLength(entry.screenshots.length)
     for (const screenshot of entry.screenshots) {
-      expect(within(dialog).getByRole('img', { name: screenshot.alt.fr }).getAttribute('src')).toBe(screenshot.src)
+      expect(within(dialog).getByRole('img', { name: screenshot.alt.fr }).getAttribute('src')).toBe(`${import.meta.env.BASE_URL}${screenshot.src.slice(1)}`)
     }
     expect(within(dialog).queryByText('Aucune capture fournie pour le moment.')).toBeNull()
     expect(document.body.style.overflow).toBe('hidden')

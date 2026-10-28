@@ -196,6 +196,16 @@ Pour la recette visuelle : déplacer le curseur dans l’accueil et sur les cart
 
 ## Préparation à la mise en ligne
 
+### GitHub Pages
+
+Le dépôt `adamelouardi000-dot/portfolio` est configuré pour `https://adamelouardi000-dot.github.io/portfolio/`. Vite utilise `base: '/portfolio/'` ; les fichiers publics sont résolus à l’affichage avec `import.meta.env.BASE_URL`, tandis que les chemins renseignés dans les données restent `/assets/...`.
+
+Le workflow `.github/workflows/deploy.yml`, basé sur le [guide officiel Vite](https://vite.dev/guide/static-deploy#github-pages), utilise Node.js 24, `npm ci`, `npm run build`, puis publie `dist`. Il se déclenche sur un push vers `main` ou manuellement avec `workflow_dispatch`. Dans **Settings → Pages → Build and deployment → Source**, sélectionner **GitHub Actions** avant le premier déploiement.
+
+Pour tester localement la version compilée : `npm run build`, puis `npm run preview` et ouvrir `http://localhost:5174/portfolio/`. Aucun commit ni push n’est effectué par la préparation locale.
+
+### Métadonnées et autres hébergeurs
+
 Les métadonnées proviennent de `profile.ts`. Le plugin `portfolio-metadata` de `vite.config.ts` génère titre, description et JSON-LD `Person`. Garder les jetons `__PORTFOLIO_*__` de `index.html`. GitHub/LinkedIn alimentent `sameAs` ; `profile.siteUrl` activera l’URL canonique et `og:url` au prochain build. `Seo.tsx` actualise les métadonnées selon FR/EN.
 
 Le contenu React est rendu côté client. Une image de partage ou un prérendu pourront être ajoutés ultérieurement avec des ressources réelles.
@@ -207,4 +217,4 @@ Les configurations sont prêtes pour **Node.js 24**, `npm run build` et la sorti
 | Vercel | Framework Vite, racine du projet, installation `npm ci`, build `npm run build`, sortie `dist`, réglages dans `vercel.json`. |
 | Netlify | Racine du projet, build `npm run build`, sortie `dist`, version Node dans `netlify.toml`. |
 
-Ces fichiers ne déclenchent aucun déploiement. Le choix de l’hébergeur, du domaine et du mode de publication sera effectué ensuite. Aucun dépôt distant n’est requis pour consulter le site localement. Avant la publication, renseigner `profile.siteUrl`, harmoniser le CV avec le rapport PFA et effectuer les contrôles ci-dessus.
+Les fichiers Netlify et Vercel ne déclenchent aucun déploiement par eux-mêmes. La configuration Vite actuelle cible le sous-chemin `/portfolio/` ; adapter `base` si un autre hébergeur sert le site à la racine. Aucun dépôt distant n’est requis pour consulter le site localement. Avant la publication, renseigner `profile.siteUrl`, harmoniser le CV avec le rapport PFA et effectuer les contrôles ci-dessus.
